@@ -3,36 +3,44 @@ from constants import *
 from player import Player
 
 def main():
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-
     #Init pygame
     pygame.init()
 
-    #Init game screen size
+    #Init groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
+    #Init game screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     #Initialize delta time and FPS
     clock = pygame.time.Clock()
     dt = 0
 
+    #Initialize player
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
     while(True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-            
+        
+        #Groups render
+        updatable.update(dt)
+
+        #Game render
         pygame.Surface.fill(screen, color=(0,0,0))
-        
-        #Player render
-        player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-        player.draw(screen)
-        
+        for item in drawable:
+            item.draw(screen)
         pygame.display.flip()
 
-        #Tick clock 60 fps
-        ms = clock.tick(60)
-        dt = ms / 1000
+        #Limit to 60 fps
+        dt = clock.tick(60) / 1000
+    #end while
+
+#end main()
 
 if __name__ == "__main__":
     main()
