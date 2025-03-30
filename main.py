@@ -50,7 +50,7 @@ def main():
             for bullet in shots:
                 if bullet.collision(asteroid):
                     bullet.kill()
-                    asteroid.kill()
+                    asteroid.split()
 
         #Game render
         pygame.Surface.fill(screen, color=(0,0,0))
