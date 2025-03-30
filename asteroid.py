@@ -30,8 +30,15 @@ class Asteroid(CircleShape):
         new_asteroid_v2 = self.velocity.rotate(-random_angle)
         new_radius = self.radius - ASTEROID_MIN_RADIUS
 
-        new_asteroid = Asteroid(self.position.x, self.position.y, new_radius)
-        new_asteroid_2 = Asteroid(self.position.x, self.position.y, new_radius)
+        # Code for spliting without triggering the collision
+        # If radius = 20 , we separate the 2 new asteroids with a lesser distance otherwise for medium asteroid >
+        if new_radius == 20:
+            distance = 18
+        else:
+            distance = 33
+
+        new_asteroid = Asteroid(self.position.x+distance, self.position.y+distance, new_radius)
+        new_asteroid_2 = Asteroid(self.position.x-distance, self.position.y-distance, new_radius)
         new_asteroid.velocity = new_asteroid_v1 * 1.2
         new_asteroid_2.velocity = new_asteroid_v2 * 1.2
 

@@ -64,6 +64,16 @@ def main():
                     asteroid.split()
                     score += 1
 
+        asteroid_list = asteroids.sprites()
+        for i in range(0, len(asteroid_list)):
+            for j in range(i+1, len(asteroid_list)):
+                if asteroid_list[i].collision(asteroid_list[j]):
+                    v1 = asteroid_list[i].velocity
+                    v2 = asteroid_list[j].velocity
+
+                    asteroid_list[i].velocity = v2
+                    asteroid_list[j].velocity = v1
+
         #Game render
         pygame.Surface.fill(screen, "black")
 
