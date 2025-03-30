@@ -43,7 +43,7 @@ def main():
         #Check collisions
         for asteroid in asteroids:
             if asteroid.collision(player):
-                print("Game over!")
+                draw_game_over(screen)
                 return
         
         for asteroid in asteroids:
@@ -53,7 +53,7 @@ def main():
                     asteroid.split()
 
         #Game render
-        pygame.Surface.fill(screen, color=(0,0,0))
+        pygame.Surface.fill(screen, "black")
         for item in drawable:
             item.draw(screen)
         pygame.display.flip()
@@ -63,6 +63,22 @@ def main():
     #end while
 
 #end main()
+
+def draw_game_over(screen):
+    pygame.Surface.fill(screen, "black")
+    font = pygame.font.SysFont("arial", 40)
+    gameover_text = font.render("Game Over!", True, "white")
+    quit_text = font.render("Press any key to exit...", True, "white")
+    screen.blit(gameover_text, (SCREEN_WIDTH/2 - gameover_text.get_width()/2, SCREEN_HEIGHT/2 - gameover_text.get_height()/2))
+    screen.blit(quit_text, (SCREEN_WIDTH/2 - quit_text.get_width()/2, SCREEN_HEIGHT/1.8 - quit_text.get_height()/1.8))
+    pygame.display.flip()
+
+    while(True):
+        events = pygame.event.get()
+
+        for event in events:
+            if event.type == pygame.KEYDOWN or event.type == pygame.QUIT:
+                return
 
 if __name__ == "__main__":
     main()
