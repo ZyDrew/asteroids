@@ -7,10 +7,13 @@ class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
 
+        color_list = ["cyan", "red", "lime", "magenta", "tomato", "yellow", "khaki", "aqua", "lawngreen"]
+        self.color = color_list[random.randint(0, len(color_list)-1)]
+
     def draw(self, screen):
         pygame.draw.circle(
             screen,
-            "white",
+            self.color,
             self.position,
             self.radius,
             2
@@ -33,9 +36,9 @@ class Asteroid(CircleShape):
         # Code for spliting without triggering the collision
         # If radius = 20 , we separate the 2 new asteroids with a lesser distance otherwise for medium asteroid >
         if new_radius == 20:
-            distance = 18
+            distance = 20
         else:
-            distance = 33
+            distance = 35
 
         new_asteroid = Asteroid(self.position.x+distance, self.position.y+distance, new_radius)
         new_asteroid_2 = Asteroid(self.position.x-distance, self.position.y-distance, new_radius)
