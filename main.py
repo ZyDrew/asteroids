@@ -51,6 +51,14 @@ def main():
         updatable.update(dt)
 
         #Check collisions
+        #Bug fix : Asteroid spawns inside another one
+        asteroid_list = asteroids.sprites()
+        for i in range(0, len(asteroid_list)-1):
+            if asteroid_list[len(asteroid_list)-1].collision(asteroid_list[i]):
+                asteroid_list[len(asteroid_list)-1].kill()
+                i = len(asteroid_list)
+        #End bug fix
+        
         for asteroid in asteroids:
             if asteroid.collision(player):
                 draw_game_over(screen)
